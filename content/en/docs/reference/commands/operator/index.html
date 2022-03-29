@@ -21,6 +21,10 @@ remove_toc_prefix: 'operator '
 <td><code>--kubeconfig &lt;string&gt;</code></td>
 <td>Paths to a kubeconfig. Only required if out-of-cluster.  (default ``)</td>
 </tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
+</tr>
 </tbody>
 </table>
 <h2 id="operator-completion">operator completion</h2>
@@ -38,6 +42,10 @@ See each sub-command&#39;s help for details on how to use the generated script.
 <tr>
 <td><code>--kubeconfig &lt;string&gt;</code></td>
 <td>Paths to a kubeconfig. Only required if out-of-cluster.  (default ``)</td>
+</tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
 </tr>
 </tbody>
 </table>
@@ -72,6 +80,10 @@ If it is not installed already, you can install it via your OS&#39;s package man
 <td><code>--no-descriptions</code></td>
 <td>disable completion descriptions </td>
 </tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
+</tr>
 </tbody>
 </table>
 <h2 id="operator-completion-fish">operator completion fish</h2>
@@ -100,6 +112,10 @@ If it is not installed already, you can install it via your OS&#39;s package man
 <td><code>--no-descriptions</code></td>
 <td>disable completion descriptions </td>
 </tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
+</tr>
 </tbody>
 </table>
 <h2 id="operator-completion-powershell">operator completion powershell</h2>
@@ -126,6 +142,10 @@ to your powershell profile.
 <tr>
 <td><code>--no-descriptions</code></td>
 <td>disable completion descriptions </td>
+</tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
 </tr>
 </tbody>
 </table>
@@ -158,6 +178,10 @@ to enable it.  You can execute the following once:</p>
 <tr>
 <td><code>--no-descriptions</code></td>
 <td>disable completion descriptions </td>
+</tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
 </tr>
 </tbody>
 </table>
@@ -225,6 +249,10 @@ to enable it.  You can execute the following once:</p>
 <td><code>--log_target &lt;stringArray&gt;</code></td>
 <td>The set of paths where to output the log. This can be any path as well as the special values stdout and stderr  (default `[stdout]`)</td>
 </tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
+</tr>
 </tbody>
 </table>
 <h2 id="operator-version">operator version</h2>
@@ -254,6 +282,11 @@ to enable it.  You can execute the following once:</p>
 <td><code>--short</code></td>
 <td><code>-s</code></td>
 <td>Use --short=false to generate full version information </td>
+</tr>
+<tr>
+<td><code>--vklog &lt;Level&gt;</code></td>
+<td></td>
+<td>number for the log level verbosity. Like -v flag. ex: --vklog=9  (default `0`)</td>
 </tr>
 </tbody>
 </table>
@@ -285,7 +318,7 @@ These environment variables affect the behavior of the <code>operator</code> com
 <td><code>CLOUD_PLATFORM</code></td>
 <td>String</td>
 <td><code></code></td>
-<td>Clound Platform on which proxy is running, if not specified,Istio will try to discover the platform. Valid platform values aws,azure,gcp,none.</td>
+<td>Cloud Platform on which proxy is running, if not specified, Istio will try to discover the platform. Valid platform values are aws, azure, gcp, none</td>
 </tr>
 <tr>
 <td><code>CLUSTER_ID</code></td>
@@ -309,7 +342,7 @@ These environment variables affect the behavior of the <code>operator</code> com
 <td><code>ENABLE_DEBUG_ON_HTTP</code></td>
 <td>Boolean</td>
 <td><code>true</code></td>
-<td>If this is set to false, the debug interface will not be ebabled on Http, recommended for production</td>
+<td>If this is set to false, the debug interface will not be enabled, recommended for production</td>
 </tr>
 <tr>
 <td><code>ENABLE_LEGACY_FSGROUP_INJECTION</code></td>
@@ -522,6 +555,12 @@ These environment variables affect the behavior of the <code>operator</code> com
 <td>If enabled, Pilot will keep track of old versions of distributed config for this duration.</td>
 </tr>
 <tr>
+<td><code>PILOT_ENABLE_ALPN_FILTER</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>If true, pilot will add Istio ALPN filters, required for proper protocol sniffing.</td>
+</tr>
+<tr>
 <td><code>PILOT_ENABLE_ANALYSIS</code></td>
 <td>Boolean</td>
 <td><code>false</code></td>
@@ -562,12 +601,6 @@ These environment variables affect the behavior of the <code>operator</code> com
 <td>Boolean</td>
 <td><code>false</code></td>
 <td>If enabled, for headless service in Kubernetes, pilot will send endpoints over EDS, allowing the sidecar to load balance among pods in the headless service. This feature should be enabled if applications access all services explicitly via a HTTP proxy port in the sidecar.</td>
-</tr>
-<tr>
-<td><code>PILOT_ENABLE_FLOW_CONTROL</code></td>
-<td>Boolean</td>
-<td><code>false</code></td>
-<td>If enabled, pilot will wait for the completion of a receive operation beforeexecuting a push operation. This is a form of flow control and is useful inenvironments with high rates of push requests to each gateway. By default,this is false.</td>
 </tr>
 <tr>
 <td><code>PILOT_ENABLE_GATEWAY_API</code></td>
@@ -780,6 +813,12 @@ These environment variables affect the behavior of the <code>operator</code> com
 <td>Limits the number of incoming XDS requests per second. On larger machines this can be increased to handle more proxies concurrently.</td>
 </tr>
 <tr>
+<td><code>PILOT_PARTIAL_FULL_PUSHES</code></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>If enabled, pilot will send partial pushes in for child resources (RDS, EDS, etc) when possible. This occurs for EDS in many cases regardless of this setting.</td>
+</tr>
+<tr>
 <td><code>PILOT_PUSH_THROTTLE</code></td>
 <td>Integer</td>
 <td><code>100</code></td>
@@ -940,6 +979,12 @@ These environment variables affect the behavior of the <code>operator</code> com
 <td>Boolean</td>
 <td><code>false</code></td>
 <td>If this is set to true, dangerous admin endpoints will be exposed on the debug interface. Not recommended for production.</td>
+</tr>
+<tr>
+<td><code>UNSAFE_PILOT_ENABLE_DELTA_TEST</code></td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>If enabled, addition runtime tests for Delta XDS efficiency are added. These checks are extremely expensive, so this should be used only for testing, not production.</td>
 </tr>
 <tr>
 <td><code>UNSAFE_PILOT_ENABLE_RUNTIME_ASSERTIONS</code></td>
